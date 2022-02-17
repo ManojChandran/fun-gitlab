@@ -22,7 +22,6 @@ variable "project_name" {
 }
 
 #-------------data section--------------------------
-# get availability zone from specified AWS region
 
 #-------------control section-----------------------
 terraform {
