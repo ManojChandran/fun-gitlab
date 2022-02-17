@@ -21,7 +21,16 @@ variable "project_name" {
   description = "stores project name"
 }
 
+variable "group_id" {
+  description = "stores project id"
+}
+
 #-------------data section--------------------------
+# root group cannot be created by API call, should be 
+# manualy created in UI. Sub groups are allowed
+data "gitlab_group" "my_group" {
+  group_id = "${var.group_id}"
+}
 
 #-------------control section-----------------------
 terraform {
@@ -43,6 +52,9 @@ resource "gitlab_project" "new_project" {
   name = "${var.project_name}"
 
   visibility_level = "private"
+  pipelines_enabled = "true"
+
+  namespace_id = "${data.gitlab_group.my_group.id}"
 }
 
 #-------------output section------------------------
