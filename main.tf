@@ -57,6 +57,16 @@ resource "gitlab_project" "new_project" {
   namespace_id = "${data.gitlab_group.my_group.id}"
 }
 
+resource "gitlab_repository_file" "ci_cd" {
+  project = "${gitlab_project.new_project.id}"
+  file_path      = ".gitlab-ci.yml"
+  branch =  "main"
+  content = base64encode(file(".gitlab-ci.yml"))
+  //author_email   = "terraform@example.com"
+  //author_name    = "Terraform"
+  commit_message = "feature: add cicd yml file"
+}
+
 #-------------output section------------------------
 output "projectID" {
     value = "${gitlab_project.new_project.id}"
