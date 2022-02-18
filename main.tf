@@ -57,6 +57,7 @@ resource "gitlab_project" "new_project" {
   namespace_id = "${data.gitlab_group.my_group.id}"
 }
 
+# Add cicd pipeline but passing .gitlab-ci..yml
 resource "gitlab_repository_file" "ci_cd" {
   project = "${gitlab_project.new_project.id}"
   file_path      = ".gitlab-ci.yml"
