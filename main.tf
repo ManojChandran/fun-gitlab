@@ -55,6 +55,13 @@ resource "gitlab_project" "new_project" {
   pipelines_enabled = "true"
 
   namespace_id = "${data.gitlab_group.my_group.id}"
+
+  push_rules {
+    author_email_regex     = "@gmail\\.com$"
+    commit_committer_check = true
+    member_check           = true
+    prevent_secrets        = true
+  }
 }
 
 # Add cicd pipeline but passing .gitlab-ci..yml
